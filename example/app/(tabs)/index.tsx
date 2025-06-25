@@ -41,30 +41,23 @@ export default function ExampleUploadScreen() {
         fields: {
           file: file.name,
         },
-        type: "raw",
         // parameters: {},
       });
 
-      BackgroundUploader.addProgressListener(({ uploadId, progress }) => {
-        if (uploadId === uploadId) {
-          setProgress(progress);
-        }
+      console.log("Upload ID:", uploadId);
+
+      BackgroundUploader.addProgressListener(({ percent }) => {
+        setProgress(percent);
       });
-      BackgroundUploader.addCompletionListener(
-        ({ uploadId, responseCode, responseBody }) => {
-          if (uploadId === uploadId) {
-            setStatus("Upload completed! Response: " + responseCode);
-            setUploading(false);
-          }
-        }
-      );
-      BackgroundUploader.addErrorListener(({ uploadId, error }) => {
-        if (uploadId === uploadId) {
-          setStatus("Upload error: " + error);
-          setUploading(false);
-        }
+      BackgroundUploader.addCompletionListener(({ responseCode }) => {
+        setStatus("Upload completed! Response: " + responseCode);
+        setUploading(false);
       });
-    } catch (err) {
+      BackgroundUploader.addErrorListener(({ error }) => {
+        setStatus("Upload error: " + error);
+        setUploading(false);
+      });
+    } catch (err: any) {
       setStatus("Upload failed: " + err.message);
       setUploading(false);
     }
