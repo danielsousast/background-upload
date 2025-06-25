@@ -8,7 +8,50 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 
+import BackgroundUploader from 'expo-background-uploader';
+import { useEffect } from 'react';
+
 export default function TabTwoScreen() {
+  useEffect(() => {
+    // Configuração inicial do uploader
+    BackgroundUploader.configure({
+      maxConcurrentUploads: 2,
+      enableNotifications: true,
+    });
+
+    // Listeners básicos
+    const progressSub = BackgroundUploader.addProgressListener((progress) => {
+      console.log('Upload progress', progress);
+    });
+    const completeSub = BackgroundUploader.addCompletionListener((result) => {
+      console.log('Upload complete', result);
+    });
+    const errorSub = BackgroundUploader.addErrorListener((err) => {
+      console.error('Upload error', err);
+    });
+
+    // Exemplo de uso: iniciar upload mock
+    // Substitua '/path/to/file.jpg' por um caminho real
+    /*
+    BackgroundUploader.startUpload('/path/to/file.jpg', {
+      url: 'https://httpbin.org/post',
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer token' },
+      fieldName: 'file',
+      fields: { userId: '123' },
+      onProgress: (progress) => console.log('Inline progress', progress),
+      onComplete: (result) => console.log('Inline complete', result),
+      onError: (err) => console.log('Inline error', err),
+    });
+    */
+
+    return () => {
+      progressSub.remove();
+      completeSub.remove();
+      errorSub.remove();
+    };
+  }, []);
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
@@ -23,7 +66,12 @@ export default function TabTwoScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Explore</ThemedText>
       </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
+      <ThemedText>Este app inclui código de exemplo para o expo-background-uploader.</ThemedText>
+      <Collapsible title="Exemplo de uso do uploader">
+        <ThemedText>
+          O uploader é configurado automaticamente ao abrir esta tela. Veja os logs no console para progresso, conclusão ou erro de upload. Para testar, descomente o trecho <ThemedText type="defaultSemiBold">BackgroundUploader.startUpload(...)</ThemedText> no código.
+        </ThemedText>
+      </Collapsible>
       <Collapsible title="File-based routing">
         <ThemedText>
           This app has two screens:{' '}

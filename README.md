@@ -1,43 +1,64 @@
-# Welcome to your Expo app 👋
+# expo-background-uploader
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Módulo nativo para upload de arquivos em background no React Native/Expo (Android/iOS), com suporte a múltiplos uploads simultâneos, persistência, notificações, retries e cancelamento.
 
-## Get started
+## Sumário
+- [Funcionalidades](#funcionalidades)
+- [Instalação](#instalacao)
+- [Uso Básico](#uso-basico)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Próximos Passos](#proximos-passos)
 
-1. Install dependencies
+## Funcionalidades
+- Upload em background (mesmo com app fechado ou minimizado)
+- Suporte a múltiplos arquivos e tipos
+- Persistência de estado/progresso
+- Notificações de progresso/status
+- Retry automático e cancelamento
+- Headers customizados e autenticação
+- API JS moderna e tipada
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+## Instalação
 ```bash
-npm run reset-project
+npm install expo-background-uploader
+# ou
+yarn add expo-background-uploader
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Uso Básico
+```javascript
+import BackgroundUploader from 'expo-background-uploader';
 
-## Learn more
+await BackgroundUploader.startUpload(filePath, {
+  url: 'https://api.exemplo.com/upload',
+  headers: { Authorization: 'Bearer token' },
+  fieldName: 'file',
+});
 
-To learn more about developing your project with Expo, look at the following resources:
+BackgroundUploader.addProgressListener(progress => {
+  console.log(`Upload ${progress.id}: ${progress.percent}%`);
+});
+```
+
+## Estrutura do Projeto
+```
+expo-background-uploader/
+├── android/
+├── ios/
+├── src/
+│   ├── index.ts
+│   └── types.ts
+├── package.json
+└── README.md
+```
+
+## Próximos Passos
+- Implementar lógica nativa de upload (WorkManager/URLSession)
+- Persistência e notificações
+- Documentação detalhada (permissões, exemplos, troubleshooting)
+- Testes automatizados
+
+Contribuições são bem-vindas!
 
 - [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
 - [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
