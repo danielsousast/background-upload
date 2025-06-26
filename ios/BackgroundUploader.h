@@ -1,5 +1,4 @@
-#import <React/RCTBridgeModule.h>
-#import <React/RCTEventEmitter.h>
+#import <ExpoModulesCore/ExpoModulesCore.h>
 
-@interface BackgroundUploader : RCTEventEmitter <RCTBridgeModule>
+@interface BackgroundUploader : EXExportedModule
 @end

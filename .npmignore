@@ -1,0 +1,44 @@
+# Example app
+example/
+
+# Development files
+.vscode/
+.gitignore
+eslint.config.js
+scripts/
+
+# Build artifacts
+node_modules/
+*.log
+*.tgz
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# Lock files (let users choose their package manager)
+package-lock.json
+yarn.lock
+
+# TypeScript build output
+*.js.map
+*.d.ts.map
+build/
+dist/
+
+# Testing
+coverage/
+*.test.js
+*.spec.js
+
+# Documentation source (keep README.md)
+USAGE.md

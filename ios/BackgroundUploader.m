@@ -1,14 +1,36 @@
+#import <ExpoModulesCore/ExpoModulesCore.h>
 #import "BackgroundUploader.h"
 
 @implementation BackgroundUploader
 
-RCT_EXPORT_MODULE();
+EX_EXPORT_MODULE(BackgroundUploader);
 
-// Example stub method
-RCT_EXPORT_METHOD(startUpload:(NSString *)filePath config:(NSDictionary *)config resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+EX_EXPORT_METHOD_AS(uploadFile,
+                    uploadFile:(NSDictionary *)config
+                    resolver:(EXPromiseResolveBlock)resolve
+                    rejecter:(EXPromiseRejectBlock)reject)
 {
-  // TODO: Implement background upload using URLSession
-  resolve(@"mock-upload-id");
+  NSString *filePath = config[@"filePath"];
+  if (!filePath) {
+    reject(@"INVALID_PARAMS", @"File path is required", nil);
+    return;
+  }
+  
+  // TODO: Implement actual upload logic
+  NSString *uploadId = [[NSUUID UUID] UUIDString];
+  resolve(@{
+    @"id": uploadId,
+    @"status": @"queued"
+  });
+}
+
+EX_EXPORT_METHOD_AS(cancelUpload,
+                    cancelUpload:(NSString *)uploadId
+                    resolver:(EXPromiseResolveBlock)resolve
+                    rejecter:(EXPromiseRejectBlock)reject)
+{
+  // TODO: Implement cancel logic
+  resolve(@YES);
 }
 
 @end

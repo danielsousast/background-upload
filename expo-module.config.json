@@ -1,0 +1,9 @@
+{
+  "platforms": ["android", "ios"],
+  "android": {
+    "modules": ["com.backgrounduploader.BackgroundUploaderModule"]
+  },
+  "ios": {
+    "modules": ["BackgroundUploader"]
+  }
+}

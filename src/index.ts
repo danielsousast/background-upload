@@ -1,4 +1,4 @@
-import { NativeEventEmitter, NativeModules, Platform } from "react-native";
+import { Platform, NativeModules, NativeEventEmitter } from 'react-native';
 import type {
   UploadConfig,
   UploaderConfig,
@@ -34,7 +34,8 @@ export default {
     return Uploader.configure?.(config);
   },
   async startUpload(filePath: string, config: UploadConfig): Promise<string> {
-    return Uploader.startUpload(filePath, config);
+    const result = await Uploader.uploadFile({ ...config, filePath });
+    return result.id;
   },
   async cancelUpload(uploadId: string): Promise<void> {
     return Uploader.cancelUpload(uploadId);
